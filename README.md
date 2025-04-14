@@ -7,7 +7,7 @@ This project implements a multi-language localization system based on user IP. I
 
 ## Features
 
-- **Automatic Localization**: Based on the user's country, the system automatically selects the appropriate language files (`en_`, `ua_`, `ru_`, `fr_`, etc.).
+- **Automatic Localization**: Based on the user's country, the system automatically selects the appropriate language files (`en`, `ua`, `ru`, `fr`, etc.).
 - **Language Fallback**: If a language for a specific country is not found, it defaults to English.
 - **Logging**: Access logs are recorded in a `log.txt` file. The log includes the user's IP address, country code, and the date/time of the request.
 - **Log Rotation**: Once the `log.txt` file exceeds 10 MB, it is cleared and overwritten.
@@ -21,10 +21,10 @@ This project implements a multi-language localization system based on user IP. I
 
 
 /localisation 
-    /en_main.txt
-    /ua_main.txt
-    /ru_main.txt
-    /fr_main.txt
+    /en.txt
+    /ua.txt
+    /ru.txt
+    /fr.txt
     ...
 /logs
     /log.txt
@@ -38,7 +38,8 @@ README.md
     - Clone or download the project to your server or local machine.
 
 2. **Setup the `localisation` Folder**:
-    - Place all localization files inside the `localisation` folder. Each file should be prefixed with the country language code (e.g., `en_main.txt` for English, `ua_main.txt` for Ukrainian, etc.).
+    - Place all localization files inside the `localisation` folder. Each file should be prefixed with the country language code (e.g., `en.txt` for English, `ua.txt` for Ukrainian, etc.).
+    - Write key - value par in files, like title=Hello World! in en.txt, and title=Привіт Світ! for ua.txt
 
 3. **Configure Server**:
     - Ensure your server has PHP installed and configured to run PHP scripts.
