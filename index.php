@@ -3,14 +3,42 @@
 <html lang="<?= $lang ?>">
 <head>
     <meta charset="UTF-8">
-    <title><?= $texts['title'] ?? 'Title' ?></title>
+    <title><?= $texts['title'] ?? 'Website' ?></title>
+    <style>
+        nav img {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <a href="?lang=en">English</a> | <a href="?lang=ua">Українська</a>
-    </nav>
 
-    <h1><?= $texts['main'] ?? 'Текст не знайдено' ?></h1>
-    <div><?= $texts['div'] ?? 'Текст не знайдено' ?></div>
+<!-- Перемикач мов -->
+<nav>
+    <a href="?lang=en">
+        <img src="flags/en.svg" alt="English" width="24"> English
+    </a> |
+    <a href="?lang=ua">
+        <img src="flags/ua.svg" alt="Українська" width="24"> Українська
+    </a>
+</nav>
+
+<hr>
+
+<!-- Основний вміст -->
+<h1><?= $texts['main'] ?? 'Main text missing' ?></h1>
+<p><?= $texts['description'] ?? 'Description not found' ?></p>
+
+<!-- Приклад форми -->
+<form method="post">
+    <label><?= $texts['form_name'] ?? 'Name' ?>:
+        <input type="text" name="name">
+    </label><br>
+    <label><?= $texts['form_email'] ?? 'Email' ?>:
+        <input type="email" name="email">
+    </label><br>
+    <button type="submit"><?= $texts['form_submit'] ?? 'Submit' ?></button>
+</form>
+
 </body>
 </html>

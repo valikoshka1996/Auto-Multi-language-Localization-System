@@ -24,20 +24,26 @@ function getCountryByIp($ip) {
     return isset($data[0]['country']) && $data[0]['country'] === 'UA' ? 'ua' : 'en';
 }
 
-function getLocalizationTexts($prefix) {
-    $dir = __DIR__ . '/localisation';
-    $files = array_filter(scandir($dir), function($file) use ($prefix) {
-        return strpos($file, $prefix) === 0 && pathinfo($file, PATHINFO_EXTENSION) === 'txt';
-    });
+function getLocalization($prefix = 'en') {
+    $file = __DIR__ . "/localisation/{$prefix}.txt";
 
-    $texts = [];
-    foreach ($files as $file) {
-        $key = substr($file, strlen($prefix), -4);
-        $texts[$key] = file_get_contents($dir . '/' . $file);
+    // Якщо файл для заданої мови не існує, використовується файл "en.txt"
+    if (!file_exists($file)) {
+        $file = __DIR__ . "/localisation/en.txt";
+        if (!file_exists($file)) return [];
     }
 
+    $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $texts = [];
+    foreach ($lines as $line) {
+        if (strpos($line, '=') !== false) {
+            list($key, $val) = explode('=', $line, 2);
+            $texts[trim($key)] = trim($val);
+        }
+    }
     return $texts;
 }
+
 
 function logAccess($ip, $lang) {
     $log_file = __DIR__ . '/logs/log.txt';
@@ -59,16 +65,20 @@ if (isset($_GET['lang']) && in_array($_GET['lang'], ['en', 'ua'])) {
 }
 
 // Автоматичне визначення, якщо не вибрано вручну
-if (!isset($_SESSION['lang'])) {
-    $ip = getRealIpAddr();
+$ip = getRealIpAddr();
+if(isset($ip)){
+   if (!isset($_SESSION['lang'])) {
     $_SESSION['lang'] = getCountryByIp($ip);
+} 
+} else {
+    $_SESSION['lang'] = $default_language;
 }
 
 
 // Встановлюємо мову
 $lang = $_SESSION['lang'];
-$prefix = $lang . '_';
-$texts = getLocalizationTexts($prefix);
+$prefix = $lang;
+$texts = getLocalization($prefix);
 
 // Для використання з інших файлів
 $GLOBALS['lang'] = $lang;

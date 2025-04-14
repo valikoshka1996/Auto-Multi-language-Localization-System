@@ -1,0 +1,6 @@
+main=Welcome to our website!One file
+description=Explore the world of possibilities with us. One file
+form_name=Your Name one file
+form_email=Email Address one file
+form_submit=Send Message one file
+title=My Awesome Website one file
