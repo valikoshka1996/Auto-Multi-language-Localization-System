@@ -32,7 +32,7 @@ $logs_to_show = array_slice($logs, $start, $logs_per_page);
 // Аналізуємо дані для графіків
 $country_count = [];
 foreach ($logs_to_show as $log) {
-    preg_match('/Country: (\w{2})/', $log, $matches);
+    preg_match('/Language: (\w{2})/', $log, $matches);
     if (isset($matches[1])) {
         $country_code = $matches[1];
         if (!isset($country_count[$country_code])) {
@@ -57,24 +57,10 @@ foreach ($logs_to_show as $log) {
         <header>
             <h1>Access Logs Dashboard</h1>
             <p>View and analyze access logs to track visits to your website.</p>
+            <!-- Кнопка для виходу -->
+            <a href="?logout=true" class="logout-btn">Logout</a>
         </header>
-<!-- Кнопка для виходу -->
-        <a href="?logout=true">Logout</a>
 
-        <!-- Пагінація -->
-        <div class="pagination">
-            <?php if ($page > 1): ?>
-                <a href="?page=1" class="first"><i class="fas fa-angle-double-left"></i> First</a>
-                <a href="?page=<?= $page - 1 ?>" class="prev"><i class="fas fa-arrow-left"></i> Previous</a>
-            <?php endif; ?>
-
-            <span>Page <?= $page ?> of <?= $total_pages ?></span>
-
-            <?php if ($page < $total_pages): ?>
-                <a href="?page=<?= $page + 1 ?>" class="next">Next <i class="fas fa-arrow-right"></i></a>
-                <a href="?page=<?= $total_pages ?>" class="last">Last <i class="fas fa-angle-double-right"></i></a>
-            <?php endif; ?>
-        </div>
 
         <!-- Графік по країнах -->
         <div class="chart-container">
@@ -95,7 +81,7 @@ foreach ($logs_to_show as $log) {
                     <?php
                     preg_match('/\[(.*?)\]/', $log, $timestamp);
                     preg_match('/IP: ([\d\.]+)/', $log, $ip);
-                    preg_match('/Country: (\w{2})/', $log, $country);
+                    preg_match('/Language: (\w{2})/', $log, $country);
                     ?>
                     <tr>
                         <td><?= $timestamp[1] ?? 'Unknown' ?></td>
@@ -105,7 +91,20 @@ foreach ($logs_to_show as $log) {
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <!-- Пагінація -->
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+                <a href="?page=1" class="first"><i class="fas fa-angle-double-left"></i> First</a>
+                <a href="?page=<?= $page - 1 ?>" class="prev"><i class="fas fa-arrow-left"></i> Previous</a>
+            <?php endif; ?>
 
+            <span>Page <?= $page ?> of <?= $total_pages ?></span>
+
+            <?php if ($page < $total_pages): ?>
+                <a href="?page=<?= $page + 1 ?>" class="next">Next <i class="fas fa-arrow-right"></i></a>
+                <a href="?page=<?= $total_pages ?>" class="last">Last <i class="fas fa-angle-double-right"></i></a>
+            <?php endif; ?>
+        </div>
     </div>
 
     <script>
