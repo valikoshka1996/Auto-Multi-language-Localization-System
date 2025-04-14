@@ -156,11 +156,7 @@ Once logged in, you will be redirected to the **dashboard** (`admin.php`), where
 
 - **Visit Analytics**: A bar chart visualizing the number of visits per country. The chart uses the **Chart.js** library to generate a dynamic representation of your access logs.
 
-### 5. Export to PDF
-
-You can export the logs and charts from the dashboard to a **PDF** document, which includes a table of log entries and a graphical representation of country-based visit data. The export function is integrated into the dashboard page (`admin.php`).
-
-### 6. Logging Out
+### 5. Logging Out
 
 To log out of the admin panel, click the "Logout" button, which will end your session and redirect you back to the login page.
 
