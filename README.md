@@ -176,20 +176,6 @@ To log out of the admin panel, click the "Logout" button, which will end your se
 - **Charts Not Displaying**: Make sure the `Chart.js` library is correctly loaded and that the access logs contain country information.
 - **Exporting PDF**: If the export functionality doesn't work, check if the necessary libraries for PDF generation are correctly installed.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-
-### Опис інструкції:
-
-- **Структура файлів**: Тут вказано, що міститься в кожному з файлів та їх функціональність.
-- **Налаштування**: Описано, як налаштувати облікові дані для адміністратора та як захистити файл `admin.json` від доступу через браузер.
-- **Доступ до адмінки**: Як зайти в адмінку та опис функцій, що доступні на дашборді.
-- **Безпека**: Рекомендації щодо забезпечення безпеки, зокрема використання HTTPS та захисту паролів.
-- **Вивантаження у PDF**: Описано можливість експорту даних у PDF з адмінки.
-
 
 
 ## Log File Format
@@ -217,4 +203,5 @@ The log file will be cleared automatically if its size exceeds 10 MB. This ensur
 ## License
 
 This project is licensed under the MIT License.
+
 
