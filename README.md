@@ -20,7 +20,7 @@ This project implements a multi-language localization system based on user IP. I
 ## File Structure
 
 
-/localisation
+/localisation \n
     /en_main.txt
     /ua_main.txt
     /ru_main.txt
