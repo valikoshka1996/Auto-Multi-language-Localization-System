@@ -1,0 +1,164 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+header p {
+    font-size: 1rem;
+    color: #777;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #4e73df;
+}
+
+.pagination .prev, .pagination .next {
+    display: flex;
+    align-items: center;
+}
+
+.pagination span {
+    align-self: center;
+}
+
+.chart-container {
+    margin-bottom: 40px;
+    width: 80%; /* Зменшуємо ширину графіка */
+    max-width: 800px; /* Максимальна ширина графіка */
+    margin: 0 auto; /* Центруємо графік */
+    height: 400px; /* Задаємо висоту графіка */
+}
+
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.log-table th, .log-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.log-table th {
+    background-color: #f4f7fa;
+}
+
+.log-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.log-table td {
+    font-size: 0.9rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 1rem;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #4e73df;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 0 5px;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #4e73df;
+    color: #fff;
+}
+
+.pagination span {
+    align-self: center;
+    font-size: 1rem;
+    color: #333;
+}
+
+.pagination .first, .pagination .last {
+    font-weight: bold;
+}
+
+.pagination .prev, .pagination .next {
+    display: flex;
+    align-items: center;
+}
+
+/* Стили для сторінки логіну */
+.login-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container label {
+    margin-bottom: 5px;
+}
+
+.login-container input {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-container button {
+    padding: 10px;
+    background-color: #4e73df;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #2e59d9;
+}
