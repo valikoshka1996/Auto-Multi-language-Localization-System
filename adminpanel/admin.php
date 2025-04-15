@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once '../config.php';
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: index.php");
     exit;
@@ -43,10 +44,11 @@ include 'assets/nav.php';
                 <?php endforeach; ?>
             </select>
         </form>
+        
         <form method="post" action="create_lang.php" class="d-flex align-items-center gap-2 mb-3">
         <select name="new_lang" class="form-select w-auto">
            <?php
-           $allPossibleLangs = ['en', 'fr', 'de', 'es', 'it', 'pl', 'ua', 'pl', 'uz']; // список можливих мов
+           $allPossibleLangs = ['en', 'fr', 'de', 'es', 'it', 'pl', 'ua', 'ru', 'uz', 'jp', 'cz', 'hu']; // список можливих мов
            $availableLangs = array_map('strtolower', $langs);
           $missingLangs = array_diff($allPossibleLangs, $availableLangs);
     
@@ -55,7 +57,7 @@ include 'assets/nav.php';
             }
             ?>
       </select>
-       <button type="submit" class="btn btn-success">Створити локалізацію</button>
+       <button type="submit" class="btn btn-success">Create localization</button>
     </form>
         <table class="table table-bordered bg-white">
             <thead>
@@ -83,10 +85,22 @@ include 'assets/nav.php';
             <button class="btn btn-primary" onclick="prepareSubmit(event)">Save Changes</button>
         </form>
         <?php if ($selectedLang): ?>
+            <?php if ($selectedLang === $default_lang): ?>
+        <div class="alert alert-info w-auto d-inline-block">✅ Default language</div>
+    <?php endif; ?>
+        
     <form method="post" action="delete_lang.php" onsubmit="return confirm('Ви впевнені, що хочете видалити локалізацію <?= htmlspecialchars($selectedLang) ?>?')" class="mb-3">
         <input type="hidden" name="lang" value="<?= htmlspecialchars($selectedLang) ?>">
         <button type="submit" class="btn btn-danger">Delete Localization <?= strtoupper($selectedLang) ?></button>
     </form>
+    
+    <?php if ($selectedLang): ?>
+    <form method="post" action="set_default.php" class="mb-3 d-inline-block">
+        <input type="hidden" name="lang" value="<?= htmlspecialchars($selectedLang) ?>">
+        <button type="submit" class="btn btn-warning">Set as Default</button>
+    </form>
+<?php endif; ?>
+
 <?php endif; ?>
     </div>
 

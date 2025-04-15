@@ -17,15 +17,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $storedHash = $adminData['password'] ?? '';
 
     if (!password_verify($oldPassword, $storedHash)) {
-        $messages[] = ['type' => 'danger', 'text' => '❌ Старий пароль невірний.'];
+        $messages[] = ['type' => 'danger', 'text' => '❌ Old password is wrong.'];
     } elseif ($newPassword !== $confirmPassword) {
-        $messages[] = ['type' => 'danger', 'text' => '❌ Нові паролі не співпадають.'];
+        $messages[] = ['type' => 'danger', 'text' => '❌ Wrong pair of new passwords'];
     } elseif (strlen($newPassword) < 6) {
-        $messages[] = ['type' => 'danger', 'text' => '⚠️ Новий пароль має бути не менше 6 символів.'];
+        $messages[] = ['type' => 'danger', 'text' => '⚠️ Minimum 6 symbols'];
     } else {
         $adminData['password'] = password_hash($newPassword, PASSWORD_DEFAULT);
         file_put_contents($adminFile, json_encode($adminData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $messages[] = ['type' => 'success', 'text' => '✅ Пароль успішно оновлено!'];
+        $messages[] = ['type' => 'success', 'text' => '✅ New password has been updated successfully!'];
     }
 }
 ?>
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <div class="container">
     <div class="card p-4">
-      <h4 class="mb-4 text-center">🔒 Зміна пароля адміністратора</h4>
+      <h4 class="mb-4 text-center">🔒 Change administrator's password</h4>
 
       <?php foreach ($messages as $msg): ?>
         <div class="alert alert-<?= $msg['type'] ?>"><?= $msg['text'] ?></div>
@@ -76,21 +76,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <form method="post" autocomplete="off">
         <div class="mb-3">
-          <label class="form-label" for="old_password">Старий пароль</label>
+          <label class="form-label" for="old_password">Old password</label>
           <input type="password" name="old_password" id="old_password" class="form-control" required>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="new_password">Новий пароль</label>
+          <label class="form-label" for="new_password">New password</label>
           <input type="password" name="new_password" id="new_password" class="form-control" required>
         </div>
 
         <div class="mb-4">
-          <label class="form-label" for="confirm_password">Повторіть новий пароль</label>
+          <label class="form-label" for="confirm_password">Repeat new password</label>
           <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Зберегти новий пароль</button>
+        <button type="submit" class="btn btn-primary w-100">Save new password</button>
       </form>
     </div>
   </div>

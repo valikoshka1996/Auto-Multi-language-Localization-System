@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-$default_language = 'ru';
+require_once 'config.php';
+
+$default_language = $default_lang;
 
 function getRealIpAddr() {
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
