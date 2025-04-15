@@ -1,7 +1,10 @@
 <?php
 include 'assets/nav.php';
 session_start();
-
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header("Location: index.php");
+    exit;
+}
 $adminFile = __DIR__ . '/assets/admin.json';
 $messages = [];
 

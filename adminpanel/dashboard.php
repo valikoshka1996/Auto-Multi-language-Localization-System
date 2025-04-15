@@ -8,13 +8,50 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-// Ваш код для парсингу логів і відображення графіків...
-
 // Парсимо логи
 $log_file = '../logs/log.txt';
 $logs = [];
 if (file_exists($log_file)) {
     $logs = file($log_file, FILE_IGNORE_NEW_LINES);
+}
+
+// Отримуємо фільтри з GET-запиту
+$ip_filter = isset($_GET['ip']) ? $_GET['ip'] : '';
+$country_filter = isset($_GET['country']) ? $_GET['country'] : '';
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
+
+// Фільтруємо логи за IP
+if ($ip_filter) {
+    $logs = array_filter($logs, function($log) use ($ip_filter) {
+        preg_match('/IP: ([\d\.]+)/', $log, $ip);
+        return isset($ip[1]) && strpos($ip[1], $ip_filter) !== false;
+    });
+}
+
+// Фільтруємо логи за країною
+if ($country_filter) {
+    $logs = array_filter($logs, function($log) use ($country_filter) {
+        preg_match('/Language: (\w{2})/', $log, $country);
+        return isset($country[1]) && $country[1] === $country_filter;
+    });
+}
+
+// Фільтруємо логи за часовим проміжком
+if ($start_date || $end_date) {
+    $logs = array_filter($logs, function($log) use ($start_date, $end_date) {
+        preg_match('/\[(.*?)\]/', $log, $timestamp);
+        if (isset($timestamp[1])) {
+            $log_date = strtotime($timestamp[1]);
+            if ($start_date && $log_date < strtotime($start_date)) {
+                return false;
+            }
+            if ($end_date && $log_date > strtotime($end_date)) {
+                return false;
+            }
+        }
+        return true;
+    });
 }
 
 // Аналізуємо дані для графіків (для всіх логів)
@@ -58,6 +95,29 @@ $logs_to_show = array_slice($logs, $start, $logs_per_page);
             <p>View and analyze access logs to track visits to your website.</p>
         </header>
 
+        <!-- Форма для фільтрів -->
+   <form class="row g-3 mb-4" method="GET">
+        <div class="col-md-3">
+            <label for="ip" class="form-label">IP</label>
+            <input type="text" class="form-control" id="ip" name="ip" value="<?= htmlspecialchars($ip_filter) ?>">
+        </div>
+        <div class="col-md-3">
+            <label for="country" class="form-label">Country Code</label>
+            <input type="text" class="form-control" id="country" name="country" value="<?= htmlspecialchars($country_filter) ?>">
+        </div>
+        <div class="col-md-3">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" value="<?= htmlspecialchars($start_date) ?>">
+        </div>
+        <div class="col-md-3">
+            <label for="end_date" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" value="<?= htmlspecialchars($end_date) ?>">
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">🔍 Filter</button>
+        </div>
+    </form>
+
         <!-- Графік по країнах -->
         <div class="chart-container">
             <canvas id="countryChart"></canvas>
@@ -87,7 +147,9 @@ $logs_to_show = array_slice($logs, $start, $logs_per_page);
                 <?php endforeach; ?>
             </tbody>
         </table>
-
+    <a href="../export/export.php" class="btn btn-success">
+        📄 Export PDF
+    </a>
         <!-- Пагінація -->
         <div class="pagination">
             <?php if ($page > 1): ?>
@@ -101,8 +163,12 @@ $logs_to_show = array_slice($logs, $start, $logs_per_page);
                 <a href="?page=<?= $page + 1 ?>" class="next">Next <i class="fas fa-arrow-right"></i></a>
                 <a href="?page=<?= $total_pages ?>" class="last">Last <i class="fas fa-angle-double-right"></i></a>
             <?php endif; ?>
+            <div class="mb-3">
+
+</div>
         </div>
     </div>
+
 
     <script>
         // Графік для відображення кількості відвідувань по країнах

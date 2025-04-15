@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: index.php");
@@ -36,10 +35,6 @@ include 'assets/nav.php';
 </head>
 <body class="bg-light p-4">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>Manage Localization</h1>
-            <a href="logout.php" class="btn btn-danger">Logout</a>
-        </div>
 
         <form method="get" class="mb-3">
             <select name="lang" onchange="this.form.submit()" class="form-select w-auto">

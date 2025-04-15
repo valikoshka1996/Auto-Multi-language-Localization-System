@@ -60,11 +60,6 @@
     <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </nav>
 
-  <!-- Контент нижче -->
-  <div class="container mt-5">
-    <h2>👋 Welcome to Admin Panel</h2>
-    <!-- Тут твій контент -->
-  </div>
 
 </body>
-</html>
+
