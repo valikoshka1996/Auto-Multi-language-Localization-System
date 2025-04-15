@@ -11,6 +11,16 @@ $vals = $_POST['val'] ?? [];
 
 if (!$lang) die("Missing lang");
 
+// Перевірка на дублікати ключів
+$trimmedKeys = array_map('trim', $keys);
+$uniqueKeys = array_unique($trimmedKeys);
+
+if (count($trimmedKeys) !== count($uniqueKeys)) {
+    header("Location: admin.php?lang=$lang&error=duplicate_key");
+    exit;
+}
+
+
 $localisationDir = '../localisation/';
 $langFiles = glob($localisationDir . '*.txt');
 

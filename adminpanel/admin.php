@@ -144,5 +144,17 @@ include 'assets/nav.php';
   }, 4000); // зникає через 4 секунди
 </script>
 <?php endif; ?>
+<?php if (isset($_GET['error']) && $_GET['error'] === 'duplicate_key'): ?>
+<div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow" role="alert" style="z-index: 1050; width: auto; max-width: 90%;">
+  <strong>❌ Помилка:</strong> Знайдено дублікати ключів! Кожен ключ має бути унікальним.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<script>
+  setTimeout(() => {
+    const alert = document.querySelector('.alert');
+    if (alert) alert.classList.remove('show');
+  }, 5000); // зникає через 5 секунд
+</script>
+<?php endif; ?>
 
 </html>
