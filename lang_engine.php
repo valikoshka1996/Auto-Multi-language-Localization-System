@@ -21,15 +21,18 @@ function getCountryByIp($ip) {
     }
 
     $data = json_decode($response, true);
-    return isset($data[0]['country']) && $data[0]['country'] === 'UA' ? 'ua' : 'en';
+    if (isset($data[0]['country'])) {
+    return strtolower($data[0]['country']) === 'ua' ? 'ua' : strtolower($data[0]['country']);
+        } else {
+    return 'unknown'; // або будь-яке значення за замовчуванням
+}
 }
 
-function getLocalization($prefix = 'en') {
+function getLocalization($default_language, $prefix = 'en') {
     $file = __DIR__ . "/localisation/{$prefix}.txt";
-
-    // Якщо файл для заданої мови не існує, використовується файл "en.txt"
+    // Якщо файл для заданої мови не існує, використовується файл з дефолтною мовою
     if (!file_exists($file)) {
-        $file = __DIR__ . "/localisation/en.txt";
+        $file = __DIR__ . "/localisation/{$default_language}.txt";
         if (!file_exists($file)) return [];
     }
 
@@ -52,7 +55,7 @@ function logAccess($ip, $lang) {
     if (file_exists($log_file) && filesize($log_file) >= $max_log_size) {
         file_put_contents($log_file, "");
     }
-
+    date_default_timezone_set('Europe/Kiev');
     $log_message = "[" . date('Y-m-d H:i:s') . "] IP: $ip, Language: $lang\n";
     file_put_contents($log_file, $log_message, FILE_APPEND);
 }
@@ -60,7 +63,7 @@ function logAccess($ip, $lang) {
 // ====== Основна логіка ======
 
 // Вибір мови вручну
-if (isset($_GET['lang']) && in_array($_GET['lang'], ['en', 'ua'])) {
+if (isset($_GET['lang']) && !empty($_GET['lang'])) {
     $_SESSION['lang'] = $_GET['lang'];
 }
 
@@ -78,7 +81,7 @@ if(isset($ip)){
 // Встановлюємо мову
 $lang = $_SESSION['lang'];
 $prefix = $lang;
-$texts = getLocalization($prefix);
+$texts = getLocalization($default_language, $prefix);
 
 // Для використання з інших файлів
 $GLOBALS['lang'] = $lang;
