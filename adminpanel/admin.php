@@ -132,29 +132,37 @@ include 'assets/nav.php';
         }
     </script>
 </body>
-<?php if (isset($_GET['saved']) && $_GET['saved'] == '1'): ?>
-<div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow" role="alert" style="z-index: 1050; width: auto; max-width: 90%;">
-  <strong>✅ Зміни збережено!</strong> Ваші зміни успішно застосовано.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<script>
-  setTimeout(() => {
-    const alert = document.querySelector('.alert');
-    if (alert) alert.classList.remove('show');
-  }, 4000); // зникає через 4 секунди
-</script>
-<?php endif; ?>
 <?php if (isset($_GET['error']) && $_GET['error'] === 'duplicate_key'): ?>
-<div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow" role="alert" style="z-index: 1050; width: auto; max-width: 90%;">
+<div class="alert alert-danger alert-dismissible fade show position-fixed bottom-0 start-50 translate-middle-x mb-3 shadow" role="alert" style="z-index: 1050; width: auto; max-width: 90%;">
   <strong>❌ Помилка:</strong> Знайдено дублікати ключів! Кожен ключ має бути унікальним.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <script>
   setTimeout(() => {
     const alert = document.querySelector('.alert');
-    if (alert) alert.classList.remove('show');
-  }, 5000); // зникає через 5 секунд
+    if (alert) {
+      alert.classList.remove('show');
+      setTimeout(() => alert.remove(), 500); // Чекаємо завершення анімації і прибираємо з DOM
+    }
+  }, 5000);
 </script>
 <?php endif; ?>
+
+<?php if (isset($_GET['saved']) && $_GET['saved'] == 1): ?>
+<div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 start-50 translate-middle-x mb-3 shadow" role="alert" style="z-index: 1050; width: auto; max-width: 90%;">
+  ✅ Дані успішно збережено!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<script>
+  setTimeout(() => {
+    const alert = document.querySelector('.alert');
+    if (alert) {
+      alert.classList.remove('show');
+      setTimeout(() => alert.remove(), 500); // Чекаємо завершення анімації і прибираємо з DOM
+    }
+  }, 5000);
+</script>
+<?php endif; ?>
+
 
 </html>
