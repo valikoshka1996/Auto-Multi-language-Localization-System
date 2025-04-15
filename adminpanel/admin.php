@@ -132,4 +132,17 @@ include 'assets/nav.php';
         }
     </script>
 </body>
+<?php if (isset($_GET['saved']) && $_GET['saved'] == '1'): ?>
+<div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow" role="alert" style="z-index: 1050; width: auto; max-width: 90%;">
+  <strong>✅ Зміни збережено!</strong> Ваші зміни успішно застосовано.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<script>
+  setTimeout(() => {
+    const alert = document.querySelector('.alert');
+    if (alert) alert.classList.remove('show');
+  }, 4000); // зникає через 4 секунди
+</script>
+<?php endif; ?>
+
 </html>
