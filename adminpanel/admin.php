@@ -43,7 +43,20 @@ include 'assets/nav.php';
                 <?php endforeach; ?>
             </select>
         </form>
-
+        <form method="post" action="create_lang.php" class="d-flex align-items-center gap-2 mb-3">
+        <select name="new_lang" class="form-select w-auto">
+           <?php
+           $allPossibleLangs = ['en', 'fr', 'de', 'es', 'it', 'pl', 'ua', 'pl', 'uz']; // список можливих мов
+           $availableLangs = array_map('strtolower', $langs);
+          $missingLangs = array_diff($allPossibleLangs, $availableLangs);
+    
+           foreach ($missingLangs as $lang) {
+               echo "<option value=\"$lang\">" . strtoupper($lang) . "</option>";
+            }
+            ?>
+      </select>
+       <button type="submit" class="btn btn-success">Створити локалізацію</button>
+    </form>
         <table class="table table-bordered bg-white">
             <thead>
                 <tr>
@@ -69,6 +82,12 @@ include 'assets/nav.php';
             <div id="hidden-entries"></div>
             <button class="btn btn-primary" onclick="prepareSubmit(event)">Save Changes</button>
         </form>
+        <?php if ($selectedLang): ?>
+    <form method="post" action="delete_lang.php" onsubmit="return confirm('Ви впевнені, що хочете видалити локалізацію <?= htmlspecialchars($selectedLang) ?>?')" class="mb-3">
+        <input type="hidden" name="lang" value="<?= htmlspecialchars($selectedLang) ?>">
+        <button type="submit" class="btn btn-danger">Delete Localization <?= strtoupper($selectedLang) ?></button>
+    </form>
+<?php endif; ?>
     </div>
 
     <script>
