@@ -96,9 +96,15 @@ This project provides an admin panel to view and analyze the access logs of your
 
 ```
 /admin
-    ├── admin.json        # Admin credentials (login and password)
+    ├── assets
+        ├──nav.php        # navigation menu
+        ├──admin.json     # Admin credentials (login and password)
     ├── index.php         # Login page for admin
     ├── admin.php         # Dashboard page (logs & charts)
+    ├── api.php           # change request endpoint
+    ├── dashboard.php     # Statistic dashboard
+    ├── logout.php        #logout endpoint
+    ├── manage.php        # change admin password
     └── style.css         # Custom styles for the admin panel
 ```
 
