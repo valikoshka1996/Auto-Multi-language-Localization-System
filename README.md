@@ -28,6 +28,21 @@ This project implements a multi-language localization system based on user IP. I
     ...
 /logs
     /log.txt
+/flags
+    en.svg
+    ua.svg
+    ...
+/adminpanel
+    /assets
+        admin.json
+        nav.php
+    index.php
+    admin.php
+    api.php
+    dashboard.php
+    logout.php
+    manage.php
+    
 index.php
 README.md
 
