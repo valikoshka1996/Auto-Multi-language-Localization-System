@@ -126,7 +126,7 @@ The format is as follows:
 ```json
 {
     "login": "admin",
-    "password": "adminpassword"
+    "password": "hash_adminpassword"
 }
 ```
 
