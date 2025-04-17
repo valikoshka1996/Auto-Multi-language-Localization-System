@@ -119,6 +119,10 @@ This project provides an admin panel to view and analyze the access logs of your
 
 ### 1. Configure Admin Credentials
 
+Default admin credentials:
+LOGIN: admin
+PASSWORD: admin.
+You can change it in admin panel.
 Before using the admin panel, you need to set the admin credentials in the `admin/admin.json` file. You can edit this file to set your desired login and password.
 
 The format is as follows:
