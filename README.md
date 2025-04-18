@@ -52,6 +52,11 @@ This project implements a multi-language localization system based on user IP. I
     dashboard.php
     logout.php
     manage.php
+    delete_lang.php
+    media_manager.php
+    set_default.php
+    create_lang.php
+ /images
     
 index.php
 README.md
