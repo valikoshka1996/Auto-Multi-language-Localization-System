@@ -1,5 +1,15 @@
 Sure! Here is a `README.md` file in English for your project:
 
+# Interface:
+ Language managment:
+ ![1](https://github.com/user-attachments/assets/49579cfa-e048-44dc-ba4b-5793e9eb257d)
+ Dashboard statictic:
+![2](https://github.com/user-attachments/assets/3bd761d4-5b16-4c2a-b748-a687b07e18c5)
+ Password managment:
+![3](https://github.com/user-attachments/assets/a40b892c-8fc7-4748-b9c1-14b91f3fb082)
+Media managment:
+![4](https://github.com/user-attachments/assets/b2d33f9e-ada3-4898-a44e-9ef201f4d089)
+
 
 # Multi-language Localization System
 
