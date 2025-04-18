@@ -8,7 +8,7 @@ Sure! Here is a `README.md` file in English for your project:
  Password managment:
 ![3](https://github.com/user-attachments/assets/a40b892c-8fc7-4748-b9c1-14b91f3fb082)
 Media managment:
-![4](https://github.com/user-attachments/assets/b2d33f9e-ada3-4898-a44e-9ef201f4d089)
+![image](https://github.com/user-attachments/assets/aec0d2ba-6dfa-49d8-9a79-72e650d232bc)
 
 
 # Multi-language Localization System
