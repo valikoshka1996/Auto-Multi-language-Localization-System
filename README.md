@@ -224,12 +224,12 @@ The log file will be cleared automatically if its size exceeds 10 MB. This ensur
 
 ## Customization
 
-- **Adding New Languages**: To add support for a new language, create new localization files (e.g., `de_main.txt` for German) in the `localisation` folder. The system will automatically detect and serve content based on the user's country.
+- **Adding New Languages**: To add support for a new language, create new localization files (e.g., `de.txt` for German) in the `localisation` folder. The system will automatically detect and serve content based on the user's country.
 - **Changing the Max Log Size**: You can change the max log size by modifying the `$max_log_size` variable in the `logAccess()` function (currently set to 10 MB).
 
 ## Troubleshooting
 
-- **Localization Files Not Found**: Ensure that the files in the `localisation` folder are named correctly with the appropriate language prefix (e.g., `en_main.txt` for English).
+- **Localization Files Not Found**: Ensure that the files in the `localisation` folder are named correctly with the appropriate language prefix (e.g., `en.txt` for English).
 - **GeoJS API Issues**: If the GeoJS service is unavailable or experiencing issues, the system will fall back to English as the default language.
 
 ## License
