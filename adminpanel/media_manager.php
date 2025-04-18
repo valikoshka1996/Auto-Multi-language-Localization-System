@@ -51,19 +51,85 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Додавання або заміна
-    if (isset($_FILES['new_image']) && $_FILES['new_image']['error'] === 0) {
-        $isReplace = !empty($_POST['replace_existing']);
-        $targetName = $isReplace ? $_POST['replace_existing'] : ($_POST['upload_name'] ?: $_FILES['new_image']['name']);
-        $targetPath = $imagesDir . DIRECTORY_SEPARATOR . $targetName;
-        move_uploaded_file($_FILES['new_image']['tmp_name'], $targetPath);
+if (isset($_FILES['new_image']) && $_FILES['new_image']['error'] === 0) {
+    $isReplace = !empty($_POST['replace_existing']);
+    $targetName = $isReplace ? $_POST['replace_existing'] : ($_POST['upload_name'] ?: $_FILES['new_image']['name']);
+    $targetPath = $imagesDir . DIRECTORY_SEPARATOR . $targetName;
 
-        if (!empty($_POST['upload_description'])) {
-            $mediaData[$targetName] = $_POST['upload_description'];
-            file_put_contents($dataFile, json_encode($mediaData, JSON_PRETTY_PRINT));
+    $shouldResize = isset($_POST['resize_to_root']) && $_POST['resize_to_root'] == '1';
+if ($isReplace && file_exists($targetPath) && $shouldResize) {
+
+        // Отримуємо розміри старого зображення
+        $oldSize = getimagesize($targetPath);
+        $oldWidth = $oldSize[0];
+        $oldHeight = $oldSize[1];
+
+        // Отримуємо тип нового зображення
+        $tmpFile = $_FILES['new_image']['tmp_name'];
+        $imgInfo = getimagesize($tmpFile);
+        $imgMime = $imgInfo['mime'];
+
+        // Завантажуємо нове зображення в ресурс
+        switch ($imgMime) {
+            case 'image/jpeg':
+                $srcImg = imagecreatefromjpeg($tmpFile);
+                break;
+            case 'image/png':
+                $srcImg = imagecreatefrompng($tmpFile);
+                break;
+            case 'image/webp':
+                $srcImg = imagecreatefromwebp($tmpFile);
+                break;
+            default:
+                // Невідомий формат — просто зберігаємо як є
+                move_uploaded_file($tmpFile, $targetPath);
+                goto save_description;
         }
-        header("Location: media_manager.php");
-        exit;
+
+        // Створюємо нове зображення з розмірами старого
+        $resizedImg = imagecreatetruecolor($oldWidth, $oldHeight);
+
+        // Копіюємо нове зображення у новий розмір (з втратою пропорцій)
+        imagecopyresampled(
+            $resizedImg,
+            $srcImg,
+            0, 0, 0, 0,
+            $oldWidth, $oldHeight,
+            imagesx($srcImg),
+            imagesy($srcImg)
+        );
+
+        // Зберігаємо відресайзене зображення поверх старого
+        switch ($imgMime) {
+            case 'image/jpeg':
+                imagejpeg($resizedImg, $targetPath, 90);
+                break;
+            case 'image/png':
+                imagepng($resizedImg, $targetPath);
+                break;
+            case 'image/webp':
+                imagewebp($resizedImg, $targetPath);
+                break;
+        }
+
+        imagedestroy($srcImg);
+        imagedestroy($resizedImg);
+    } else {
+        // Якщо не заміна — просто переміщаємо файл
+        move_uploaded_file($_FILES['new_image']['tmp_name'], $targetPath);
     }
+
+    save_description:
+    if (!empty($_POST['upload_description'])) {
+        $mediaData[$targetName] = $_POST['upload_description'];
+        file_put_contents($dataFile, json_encode($mediaData, JSON_PRETTY_PRINT));
+    }
+
+    header("Location: media_manager.php");
+    exit;
+}
+
+
 }
 
 // Пагінація
@@ -130,6 +196,8 @@ include 'assets/nav.php'; // якщо треба
                         <input type="hidden" name="filename" value="<?= htmlspecialchars($file) ?>">
                         <button type="submit" name="action" value="delete" class="btn btn-danger btn-sm w-100">Delete</button>
                     </form>
+                    <div class="col-md-12 mt-2">
+</div>
 
                     <form method="POST" enctype="multipart/form-data" class="mt-2">
                         <input type="hidden" name="replace_existing" value="<?= htmlspecialchars($file) ?>">
@@ -137,6 +205,12 @@ include 'assets/nav.php'; // якщо треба
                             <input type="file" name="new_image" class="form-control form-control-sm" required>
                             <button type="submit" class="btn btn-warning btn-sm">Change</button>
                         </div>
+                            <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="1" id="resizeCheckbox_<?= md5($file) ?>" name="resize_to_root">
+        <label class="form-check-label" for="resizeCheckbox_<?= md5($file) ?>">
+            Resize to root pic
+        </label>
+    </div>
                     </form>
                 </div>
             </div>
