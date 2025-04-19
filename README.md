@@ -114,6 +114,8 @@ This project provides an admin panel to view and analyze the access logs of your
     ├── assets
         ├──nav.php        # navigation menu
         ├──admin.json     # Admin credentials (login and password)
+    ├── export
+        ├──export.php        # pdf export
     ├── index.php         # Login page for admin
     ├── admin.php         # Dashboard page (logs & charts)
     ├── api.php           # change request endpoint

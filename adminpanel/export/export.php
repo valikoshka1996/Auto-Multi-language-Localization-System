@@ -6,7 +6,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-$log_file = '../logs/log.txt';
+$log_file = '../../logs/log.txt';
 $logs = [];
 if (file_exists($log_file)) {
     $logs = file($log_file, FILE_IGNORE_NEW_LINES);
