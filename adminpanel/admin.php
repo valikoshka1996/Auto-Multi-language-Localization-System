@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once '../config.php';
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || !isset($_SESSION['admin_password_hash'])) {
     header("Location: index.php");
     exit;
 }
@@ -34,6 +34,7 @@ include 'assets/nav.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+<script src="assets/admin.js"></script>
 <body class="bg-light p-4">
     <div class="container">
 
@@ -48,7 +49,7 @@ include 'assets/nav.php';
         <form method="post" action="create_lang.php" class="d-flex align-items-center gap-2 mb-3">
         <select name="new_lang" class="form-select w-auto">
            <?php
-           $allPossibleLangs = ['en', 'fr', 'de', 'es', 'it', 'pl', 'ua', 'ru', 'uz', 'jp', 'cz', 'hu']; // список можливих мов
+           $allPossibleLangs = ['en', 'fr', 'de', 'es', 'it', 'pl', 'ua', 'ru', 'uz', 'jp', 'cz', 'hu', 'ee', 'se', 'sk', 'pt']; // список можливих мов
            $availableLangs = array_map('strtolower', $langs);
           $missingLangs = array_diff($allPossibleLangs, $availableLangs);
     
@@ -71,7 +72,8 @@ include 'assets/nav.php';
                 <?php foreach ($entries as $key => $val): ?>
                     <tr>
                         <td><input class="form-control" name="key[]" value="<?= htmlspecialchars($key) ?>"></td>
-                        <td><input class="form-control" name="val[]" value="<?= htmlspecialchars($val) ?>"></td>
+                        <td><input class="form-control editable-value" name="val[]" value="<?= htmlspecialchars($val) ?>"></td>
+
                         <td><button type="button" class="btn btn-sm btn-danger" onclick="this.closest('tr').remove()">Delete</button></td>
                     </tr>
                 <?php endforeach; ?>

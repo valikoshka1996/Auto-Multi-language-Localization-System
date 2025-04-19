@@ -28,8 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = $_POST['login'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    if (check_login($login, $password)) {
+    $hashedPassword = check_login($login, $password);
+
+    if ($hashedPassword) {
         $_SESSION['logged_in'] = true;
+        $_SESSION['admin_password_hash'] = $hashedPassword; // Зберігаємо хеш пароля в сесії
         header("Location: admin.php");
         exit;
     } else {

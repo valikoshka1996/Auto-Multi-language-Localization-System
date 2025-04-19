@@ -3,8 +3,8 @@ include 'assets/nav.php';
 session_start();
 
 // Перевірка, чи авторизований користувач
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header("Location: index.php"); // Перенаправлення на сторінку логіну
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || !isset($_SESSION['admin_password_hash'])) {
+    header("Location: index.php");
     exit;
 }
 
@@ -147,7 +147,7 @@ $logs_to_show = array_slice($logs, $start, $logs_per_page);
                 <?php endforeach; ?>
             </tbody>
         </table>
-    <a href="../export/export.php" class="btn btn-success">
+    <a href="export/export.php" class="btn btn-success">
         📄 Export PDF
     </a>
         <!-- Пагінація -->
