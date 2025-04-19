@@ -60,6 +60,10 @@ include 'assets/nav.php';
       </select>
        <button type="submit" class="btn btn-success">Create localization</button>
     </form>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="toggleEditKeys">
+            <label class="form-check-label" for="toggleEditKeys">Редагування ключів (Key)</label>
+        </div>
         <table class="table table-bordered bg-white">
             <thead>
                 <tr>
@@ -101,6 +105,7 @@ include 'assets/nav.php';
         <input type="hidden" name="lang" value="<?= htmlspecialchars($selectedLang) ?>">
         <button type="submit" class="btn btn-warning">Set as Default</button>
     </form>
+
 <?php endif; ?>
 
 <?php endif; ?>
@@ -133,6 +138,10 @@ include 'assets/nav.php';
             form.submit();
         }
     </script>
+<button id="scrollTopBtn" class="btn btn-primary position-fixed rounded-circle" 
+        style="bottom: 20px; right: 20px; display: none; z-index: 1055; width: 50px; height: 50px;">
+  ↑
+</button>
 </body>
 <?php if (isset($_GET['error']) && $_GET['error'] === 'duplicate_key'): ?>
 <div class="alert alert-danger alert-dismissible fade show position-fixed bottom-0 start-50 translate-middle-x mb-3 shadow" role="alert" style="z-index: 1050; width: auto; max-width: 90%;">
@@ -155,6 +164,8 @@ include 'assets/nav.php';
   ✅ Дані успішно збережено!
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+
+
 <script>
   setTimeout(() => {
     const alert = document.querySelector('.alert');
