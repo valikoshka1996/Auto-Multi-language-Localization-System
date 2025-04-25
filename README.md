@@ -1,5 +1,5 @@
 
-# TourBeat Landing Page + Custom Admin Panel
+# Custom Admin Panel
 
 > A multilingual, mobile-friendly landing page for a travel-related service with a fully custom-built admin panel and media manager.
 
