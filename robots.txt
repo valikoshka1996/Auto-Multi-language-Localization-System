@@ -1,0 +1,31 @@
+# robots.txt для https://tourbeat.com.ua
+
+User-agent: *
+
+# ❌ Заборона для приватних, системних і небезпечних директорій:
+Disallow: /adminpanel/
+Disallow: /config.php
+Disallow: /payments/
+Disallow: /tokens/
+Disallow: /logs/
+Disallow: /db/
+Disallow: /localisations/
+
+# ❌ Заборона пошуку і параметрів:
+Disallow: /search/
+Disallow: /?s=
+Disallow: /*?*utm_
+Disallow: /*?*fbclid
+
+# ✅ Дозвіл на публічні ресурси:
+Allow: /assets/
+Allow: /images/
+
+# 🌐 Sitemap для пошуковиків:
+Sitemap: https://tourbeat.com.ua/sitemap.xml
+
+# 🕸 Host (для Яндекса):
+Host: tourbeat.com.ua
+
+# 🕑 Обмеження частоти запитів (опційно, якщо хост слабенький):
+Crawl-delay: 5

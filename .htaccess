@@ -1,4 +1,17 @@
- <Files "admin.json">
+# ✅ Дозволити доступ до robots.txt
+<Files "robots.txt">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# ❌ Заборонити доступ до всіх інших .txt-файлів
+<FilesMatch "^(?!robots\.txt$).*\.txt$">
     Order Allow,Deny
     Deny from all
-</Files>
+</FilesMatch>
+
+# ❌ Заборонити доступ до JSON-файлів
+<FilesMatch "\.json$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

@@ -145,10 +145,13 @@ include 'assets/nav.php'; // якщо треба
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Медіаменеджер</title>
+    <title>Media manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light p-4">
+
+
+
 <div class="container">
     <h2 class="mb-4">Media managment</h2>
 
@@ -159,7 +162,7 @@ include 'assets/nav.php'; // якщо треба
                 <input type="file" name="new_image" class="form-control" required>
             </div>
             <div class="col-md-3">
-                <input type="text" name="upload_name" class="form-control" placeholder="Нове ім'я (необов'язково)">
+                <input type="text" name="upload_name" class="form-control" placeholder="New name (optional)">
             </div>
             <div class="col-md-3">
                 <select name="replace_existing" class="form-select">
@@ -170,13 +173,15 @@ include 'assets/nav.php'; // якщо треба
                 </select>
             </div>
             <div class="col-md-2">
-                <input type="text" name="upload_description" class="form-control" placeholder="Опис">
+                <input type="text" name="upload_description" class="form-control" placeholder="Desc">
             </div>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-success w-100">Save</button>
             </div>
         </div>
     </form>
+    
+    
 
 <div class="row g-3">
     <?php foreach ($imagesToShow as $file): ?>

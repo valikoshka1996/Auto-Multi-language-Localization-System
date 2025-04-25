@@ -92,6 +92,7 @@ $logs_to_show = array_slice($logs, $start, $logs_per_page);
     <div class="container">
         <header>
             <h1>Access Logs Dashboard</h1>
+            <p>Total Visits: <?= count($logs) ?></p>
             <p>View and analyze access logs to track visits to your website.</p>
         </header>
 
@@ -151,22 +152,36 @@ $logs_to_show = array_slice($logs, $start, $logs_per_page);
         📄 Export PDF
     </a>
         <!-- Пагінація -->
-        <div class="pagination">
-            <?php if ($page > 1): ?>
-                <a href="?page=1" class="first"><i class="fas fa-angle-double-left"></i> First</a>
-                <a href="?page=<?= $page - 1 ?>" class="prev"><i class="fas fa-arrow-left"></i> Previous</a>
-            <?php endif; ?>
+<div class="pagination">
+    <?php
+    // Зберігаємо всі GET-параметри, крім 'page'
+    $query_params = $_GET;
+    unset($query_params['page']);
+    $query_string = http_build_query($query_params);
+    $query_string = $query_string ? '&' . $query_string : '';
+    ?>
 
-            <span>Page <?= $page ?> of <?= $total_pages ?></span>
+    <?php if ($page > 1): ?>
+        <a href="?page=1<?= $query_string ?>" class="first">
+            <i class="fas fa-angle-double-left"></i> First
+        </a>
+        <a href="?page=<?= $page - 1 ?><?= $query_string ?>" class="prev">
+            <i class="fas fa-arrow-left"></i> Previous
+        </a>
+    <?php endif; ?>
 
-            <?php if ($page < $total_pages): ?>
-                <a href="?page=<?= $page + 1 ?>" class="next">Next <i class="fas fa-arrow-right"></i></a>
-                <a href="?page=<?= $total_pages ?>" class="last">Last <i class="fas fa-angle-double-right"></i></a>
-            <?php endif; ?>
-            <div class="mb-3">
+    <span>Page <?= $page ?> of <?= $total_pages ?></span>
 
+    <?php if ($page < $total_pages): ?>
+        <a href="?page=<?= $page + 1 ?><?= $query_string ?>" class="next">
+            Next <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="?page=<?= $total_pages ?><?= $query_string ?>" class="last">
+            Last <i class="fas fa-angle-double-right"></i>
+        </a>
+    <?php endif; ?>
 </div>
-        </div>
+
     </div>
 
 

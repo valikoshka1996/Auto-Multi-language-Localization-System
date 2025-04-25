@@ -49,7 +49,7 @@ include 'assets/nav.php';
         <form method="post" action="create_lang.php" class="d-flex align-items-center gap-2 mb-3">
         <select name="new_lang" class="form-select w-auto">
            <?php
-           $allPossibleLangs = ['en', 'fr', 'de', 'es', 'it', 'pl', 'ua', 'ru', 'uz', 'jp', 'cz', 'hu', 'ee', 'se', 'sk', 'pt']; // список можливих мов
+           $allPossibleLangs = ['en', 'fr', 'de', 'es', 'it', 'pl', 'ua', 'ru', 'uz', 'jp', 'cz', 'hu', 'ee', 'se', 'sk', 'pt', 'ae']; // список можливих мов
            $availableLangs = array_map('strtolower', $langs);
           $missingLangs = array_diff($allPossibleLangs, $availableLangs);
     
@@ -62,8 +62,19 @@ include 'assets/nav.php';
     </form>
         <div class="form-check form-switch mb-3">
             <input class="form-check-input" type="checkbox" id="toggleEditKeys">
-            <label class="form-check-label" for="toggleEditKeys">Редагування ключів (Key)</label>
+            <label class="form-check-label" for="toggleEditKeys">Key editing access (Key)</label>
         </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+             <input type="text" id="filterKey" class="form-control" placeholder="🔍 Key filter (Key)">
+            </div>
+            <div class="col-md-6">
+              <input type="text" id="filterValue" class="form-control" placeholder="🔍 Value filter (Value)">
+            </div>
+        </div>
+
+        
         <table class="table table-bordered bg-white">
             <thead>
                 <tr>
@@ -115,8 +126,8 @@ include 'assets/nav.php';
         function addRow() {
             const row = `
             <tr>
-                <td><input class="form-control" name="key[]"></td>
-                <td><input class="form-control" name="val[]"></td>
+                <td><input class="form-control" name="key[]" required></td>
+                <td><input class="form-control" name="val[]" required></td>
                 <td><button type="button" class="btn btn-sm btn-danger" onclick="this.closest('tr').remove()">Delete</button></td>
             </tr>`;
             document.getElementById('entries').insertAdjacentHTML('beforeend', row);

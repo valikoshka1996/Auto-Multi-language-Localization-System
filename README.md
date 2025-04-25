@@ -1,246 +1,206 @@
-Sure! Here is a `README.md` file in English for your project:
+Ось дуже детальний `README.md` англійською для твого сайту **tourbeat.com.ua** з кастомною адмінкою:
 
-# Interface:
- Language managment:
- ![1](https://github.com/user-attachments/assets/49579cfa-e048-44dc-ba4b-5793e9eb257d)
- Dashboard statictic:
-![2](https://github.com/user-attachments/assets/3bd761d4-5b16-4c2a-b748-a687b07e18c5)
- Password managment:
-![3](https://github.com/user-attachments/assets/a40b892c-8fc7-4748-b9c1-14b91f3fb082)
-Media managment:
-![image](https://github.com/user-attachments/assets/aec0d2ba-6dfa-49d8-9a79-72e650d232bc)
+---
 
+```markdown
+# TourBeat Landing Page + Custom Admin Panel
 
-# Multi-language Localization System
+> A multilingual, mobile-friendly landing page for a travel-related service with a fully custom-built admin panel and media manager.
 
-This project implements a multi-language localization system based on user IP. It determines the user's country based on their IP address and loads the corresponding language files. The system supports rotation of log files once they reach a specified size.
+---
 
-## Features
+## 🌐 Overview
 
-- **Automatic Localization**: Based on the user's country, the system automatically selects the appropriate language files (`en`, `ua`, `ru`, `fr`, etc.).
-- **Language Fallback**: If a language for a specific country is not found, it defaults to English.
-- **Logging**: Access logs are recorded in a `log.txt` file. The log includes the user's IP address, country code, and the date/time of the request.
-- **Log Rotation**: Once the `log.txt` file exceeds 10 MB, it is cleared and overwritten.
+This project consists of two main parts:
 
-## Requirements
+- **Frontend landing page** based on a modified [TEMPLATED Hielo](https://templated.co/hielo) template.
+- **Custom backend admin panel** for managing content, languages, payment settings, and uploaded media.
 
-- PHP 7.0+ (for PHP functions like `file_get_contents`, `scandir`, `json_decode`).
-- The project directory must include the `localisation` folder, containing localization files (`*.txt`) for each supported language.
+Built with:
+- PHP 7.x
+- Bootstrap Icons
+- Vanilla JS
+- LiqPay integration (test credentials)
+- Flat file localization system
 
-## File Structure
+---
 
-
-/localisation 
-    /en.txt
-    /ua.txt
-    /ru.txt
-    /fr.txt
-    ...
-/logs
-    /log.txt
-/flags
-    en.svg
-    ua.svg
-    ...
-/adminpanel
-    /assets
-        admin.json
-        nav.php
-    index.php
-    admin.php
-    api.php
-    dashboard.php
-    logout.php
-    manage.php
-    delete_lang.php
-    media_manager.php
-    set_default.php
-    create_lang.php
- /images
-    
-index.php
-README.md
-
-
-## Installation
-
-1. **Clone the Repository**:
-    - Clone or download the project to your server or local machine.
-
-2. **Setup the `localisation` Folder**:
-    - Place all localization files inside the `localisation` folder. Each file should be prefixed with the country language code (e.g., `en.txt` for English, `ua.txt` for Ukrainian, etc.).
-    - Write key - value par in files, like title=Hello World! in en.txt, and title=Привіт Світ! for ua.txt
-
-3. **Configure Server**:
-    - Ensure your server has PHP installed and configured to run PHP scripts.
-    - Set up file permissions so that the web server can read files in the `localisation` folder and write to the `logs` folder.
-
-4. **Accessing the Application**:
-    - Navigate to `index.php` in your browser. The page will automatically determine the user's language based on their IP address.
-
-## How It Works
-
-1. **IP Address Detection**: The user's real IP address is detected using `$_SERVER` variables, considering headers such as `X-Forwarded-For` for proxy environments.
-   
-2. **Country Determination**: The IP address is used to query the [GeoJS API](https://get.geojs.io/) to determine the country code.
-
-3. **File Selection**: Based on the country code (e.g., `UA` for Ukraine, `RU` for Russia), the appropriate language files are loaded. If no matching language file is found, English (`en_`) is used by default.
-
-4. **Log Rotation**: The access logs are written into `logs/log.txt`. Once the file size exceeds 10 MB, it is cleared and rewritten.
-
-## Example Output
-
-When accessing the site, the appropriate content from the localization files will be displayed. For example, if the user is from Ukraine, the content from the `ua_main.txt` and `ua_div.txt` files will be shown.
-
-Example output:
-
-```html
-<h1>Welcome to our website!</h1>
-<div>Here is some content specific to Ukrainian users.</div>
-```
-
-If the user's country is not recognized or there is no specific file for the country, the content will default to English.
-
-
-
-# Admin Panel for Access Logs
-
-This project provides an admin panel to view and analyze the access logs of your website. The panel includes login authentication, paginated log entries, country-based visit charts, and the ability to export logs as a PDF. The following sections describe how to set up and use this system.
-
-## Project Structure
+## 📁 Project Structure
 
 ```
-/admin
-    ├── assets
-        ├──nav.php        # navigation menu
-        ├──admin.json     # Admin credentials (login and password)
-    ├── export
-        ├──export.php        # pdf export
-    ├── index.php         # Login page for admin
-    ├── admin.php         # Dashboard page (logs & charts)
-    ├── api.php           # change request endpoint
-    ├── dashboard.php     # Statistic dashboard
-    ├── logout.php        #logout endpoint
-    ├── manage.php        # change admin password
-    └── style.css         # Custom styles for the admin panel
+.
+├── index.php               # Entry point of the landing page
+├── config.php              # Configuration file (currency, lang, payment, DB, etc.)
+├── lang_engine.php         # Core localization engine
+├── lang_api.php            # API endpoint for language switcher
+├── localisation/           # Contains text files with key-value language pairs
+├── tokens/                 # Directory for payment tokens
+├── create_visits_db.php    # DB schema generator (visitor tracking)
+├── adminpanel/             # Full custom admin panel (see below)
+├── assets/                 # CSS, images, and icons
 ```
 
-### Files:
+---
 
-- **admin.json**: Contains the admin credentials (login and password).
-- **index.php**: The login page where the admin can enter their credentials.
-- **admin.php**: The main admin dashboard that displays access logs and a chart for visit statistics.
-- **style.css**: Styles for the admin panel pages.
+## ⚙️ Setup Instructions
 
-## Setup
+### Requirements
 
-### 1. Configure Admin Credentials
+- PHP 7.2 or higher
+- Apache/Nginx with mod_rewrite enabled
+- MySQL (optional for visit tracking)
+- HTTPS (required for LiqPay)
 
-Default admin credentials:
-LOGIN: admin
-PASSWORD: admin.
-You can change it in admin panel.
-Before using the admin panel, you need to set the admin credentials in the `admin/admin.json` file. You can edit this file to set your desired login and password.
+### Installation
 
-The format is as follows:
+1. **Clone the repo or upload to your server:**
 
-```json
-{
-    "login": "admin",
-    "password": "hash_adminpassword"
-}
-```
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/tourbeat.git
+   ```
 
-Make sure to keep these credentials secure and avoid exposing the `admin.json` file.
+2. **Configure the system:**
 
-### 2. Restrict Access to `admin.json`
+   Edit `config.php`:
 
-To prevent unauthorized access to the `admin.json` file via the browser, ensure you have configured your web server properly. 
+   ```php
+   $name = 'TourBeat';
+   $default_lang = 'en';
+   $site_url = 'https://tourbeat.com.ua/';
+   $public_key = 'YOUR_PUBLIC_KEY';
+   $private_key = 'YOUR_PRIVATE_KEY';
+   ```
 
-For Apache servers, add the following rules to your `.htaccess` file:
+3. **Enable rewrite rules** (`.htaccess` must be supported):
 
-```apache
-<Files "admin.json">
-    Order Allow,Deny
-    Deny from all
-</Files>
-```
+   ```apache
+   Options +FollowSymlinks
+   RewriteEngine on
+   ```
 
-For NGINX servers, add the following to the server block in the NGINX config:
+4. **Localization Files:**
 
-```nginx
-location ~* /admin.json {
-    deny all;
-}
-```
+   Place `.txt` files in the `localisation/` folder. Each file represents one language (e.g., `en.txt`, `ua.txt`), structured as key-value pairs.
 
-This will prevent external access to the `admin.json` file.
+5. **Media Uploads:**
 
-### 3. Access the Admin Panel
+   All uploaded images are stored and managed via `adminpanel/media_manager.php`.
 
-- Open your browser and navigate to the **login page** of the admin panel, typically located at:
+6. **(Optional) Initialize Visitor DB Table:**
 
-  ```
-  http://yourdomain.com/admin/index.php
-  ```
+   Visit `/create_visits_db.php` to create a MySQL table if you intend to track visits.
 
-- Enter the admin credentials (as specified in `admin.json`) on the login page.
+---
 
-### 4. Dashboard Features
+## 🔐 Admin Panel
 
-Once logged in, you will be redirected to the **dashboard** (`admin.php`), where the following features are available:
+Access: `/adminpanel/`
 
-- **Pagination**: Logs are paginated, displaying 20 entries per page. You can navigate through the logs using the "Previous" and "Next" buttons.
-  
-- **Logs Table**: Displays a table with the following columns:
-  - **Timestamp**: Date and time of the access.
-  - **IP Address**: The IP address of the visitor.
-  - **Country**: The country code (two-letter) derived from the visitor's IP.
+### Login
 
-- **Visit Analytics**: A bar chart visualizing the number of visits per country. The chart uses the **Chart.js** library to generate a dynamic representation of your access logs.
+- No built-in authentication by default (suggestion: use `.htpasswd` or PHP-based auth).
+- Logout button: `/adminpanel/logout.php`
 
-### 5. Logging Out
+### Admin Pages
 
-To log out of the admin panel, click the "Logout" button, which will end your session and redirect you back to the login page.
+| File                          | Description |
+|------------------------------|-------------|
+| `dashboard.php`              | Main admin dashboard |
+| `admin.php`                  | Internal setup options |
+| `general.php`                | Site-wide settings (site name, favicon, etc.) |
+| `media_manager.php`          | Upload, preview, rename and describe photos |
+| `create_lang.php`            | Create and edit language files |
+| `manage.php`                 | Language management interface |
+| `delete_lang.php`            | Language deletion |
+| `set_default.php`            | Set default language |
+| `payment.php`                | LiqPay integration & configuration |
 
-## Security Considerations
+---
 
-- **HTTPS**: Make sure your admin panel is served over HTTPS to protect sensitive login credentials during transmission.
-- **Session Management**: The admin panel uses PHP sessions to track login status. Ensure your server configuration allows session handling securely.
-- **Password Storage**: In this implementation, the password is stored as plain text in the `admin.json` file. Consider hashing the password with PHP’s `password_hash()` and `password_verify()` functions for better security in production environments.
+## 🌍 Language Engine
 
-## Troubleshooting
-
-- **Unable to Access Admin Panel**: Ensure the `admin.json` file has the correct credentials and that it's protected from public access via your server configuration.
-- **Charts Not Displaying**: Make sure the `Chart.js` library is correctly loaded and that the access logs contain country information.
-- **Exporting PDF**: If the export functionality doesn't work, check if the necessary libraries for PDF generation are correctly installed.
-
-
-
-## Log File Format
-
-The log file (`logs/log.txt`) records the following details for each request:
+The localization system uses `.txt` files in the `localisation/` directory. Example:
 
 ```
-[YYYY-MM-DD HH:MM:SS] IP: <IP_ADDRESS>, Country: <COUNTRY_CODE>
+title = Welcome to TourBeat!
+description = Discover your next adventure with us.
 ```
 
-### Log Rotation
+Switching language:
+- Done via JS call to `lang_api.php?lang=ua`
+- Language stored in `$_SESSION['lang']`
 
-The log file will be cleared automatically if its size exceeds 10 MB. This ensures the log file doesn't grow too large and consume excessive disk space.
+Default fallback: language from `config.php`.
 
-## Customization
+---
 
-- **Adding New Languages**: To add support for a new language, create new localization files (e.g., `de.txt` for German) in the `localisation` folder. The system will automatically detect and serve content based on the user's country.
-- **Changing the Max Log Size**: You can change the max log size by modifying the `$max_log_size` variable in the `logAccess()` function (currently set to 10 MB).
+## 💳 Payments (LiqPay)
 
-## Troubleshooting
+Integrated with test credentials by default:
 
-- **Localization Files Not Found**: Ensure that the files in the `localisation` folder are named correctly with the appropriate language prefix (e.g., `en.txt` for English).
-- **GeoJS API Issues**: If the GeoJS service is unavailable or experiencing issues, the system will fall back to English as the default language.
+```php
+$public_key = 'sandbox_...';
+$private_key = 'sandbox_...';
+```
 
-## License
+Change to your real keys in `config.php`.
 
-This project is licensed under the MIT License.
+After payment, users are redirected to a Telegram group.
 
+---
 
+## 📸 Media Manager
+
+- Located at `/adminpanel/media_manager.php`
+- Features:
+  - Scan `/images/` folder
+  - Rename files
+  - Add description (stored in `media_data.json`)
+  - View full-size preview
+  - Pagination (6 per page)
+
+---
+
+## 📦 Database (optional)
+
+For visit tracking (`create_visits_db.php`) you can set up a MySQL table.
+
+**DB Settings:**
+
+In `config.php`:
+
+```php
+$db_user = 'YOUR_USER';
+$db_password = 'YOUR_PASS';
+$host = 'localhost';
+```
+
+You can enhance this with admin logging, analytics, or booking info.
+
+---
+
+## 🛠 Extending
+
+Suggestions for further development:
+- Add authentication to the admin panel
+- Use MySQL for language storage instead of flat files
+- Add SEO metadata editor in admin
+- Extend media manager with video support
+
+---
+
+## 📄 License
+
+This project contains HTML/CSS from TEMPLATED (CC BY 3.0). All PHP code is custom and you are free to modify/distribute under the MIT license.
+
+---
+
+## 📬 Contact
+
+For support or customization requests, contact the original developer or clone & modify for your needs.
+
+```
+
+---
+
+Хочеш, я ще створю GitHub-репозиторій і заллю файли туди, чи просто згенерувати цей README.md як файл?

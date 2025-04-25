@@ -1,6 +1,0 @@
-main=Bienvenue sur notre site web ! One file
-description=Explorez un monde de possibilités avec nous. One file
-form_name=Votre nom one file
-form_email=Adresse e-mail one file
-form_submit=Envoyer le message one file
-title=Mon site web génial one file

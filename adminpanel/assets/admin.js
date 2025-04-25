@@ -1,35 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Делегування замість призначення обробників на кожен input
     document.getElementById('entries').addEventListener('click', function (e) {
-        if (e.target && e.target.classList.contains('editable-value')) {
-            const input = e.target;
+        const target = e.target;
 
-            // Уникаємо повторного натискання
-            if (input.dataset.editing === "true") return;
+        // Якщо натиснули НЕ на input, або це вже textarea — нічого не робимо
+        if (!target.classList.contains('editable-value') || target.tagName === 'TEXTAREA') return;
 
-            input.dataset.editing = "true";
+        // Уникаємо повторного натискання
+        if (target.dataset.editing === "true") return;
 
-            const textarea = document.createElement('textarea');
-            textarea.className = 'form-control editable-value';
-            textarea.name = 'val[]';
-            textarea.value = input.value;
-            textarea.style.minHeight = '100px';
+        target.dataset.editing = "true";
 
-            input.replaceWith(textarea);
-            textarea.focus();
+        const textarea = document.createElement('textarea');
+        textarea.className = 'form-control editable-value';
+        textarea.name = 'val[]';
+        textarea.value = target.value;
+        textarea.style.minHeight = '100px';
 
-            textarea.addEventListener('blur', function () {
-                const newInput = document.createElement('input');
-                newInput.className = 'form-control editable-value';
-                newInput.name = 'val[]';
-                newInput.value = textarea.value;
-                newInput.removeAttribute('data-editing');
+        target.replaceWith(textarea);
+        textarea.focus();
 
-                textarea.replaceWith(newInput);
-            });
-        }
+        textarea.addEventListener('blur', function () {
+            const newInput = document.createElement('input');
+            newInput.className = 'form-control editable-value';
+            newInput.name = 'val[]';
+            newInput.value = textarea.value;
+            newInput.removeAttribute('data-editing');
+
+            textarea.replaceWith(newInput);
+        });
     });
 });
+
 
   document.addEventListener("DOMContentLoaded", function () {
     const scrollTopBtn = document.getElementById("scrollTopBtn");
@@ -64,3 +65,25 @@ document.addEventListener("DOMContentLoaded", function () {
     updateKeyInputsState(); // виклик одразу при завантаженні
   });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const keyInput = document.getElementById("filterKey");
+    const valueInput = document.getElementById("filterValue");
+
+    if (!keyInput || !valueInput) return; // Безпечна перевірка
+
+    function filterTable() {
+        const keyFilter = keyInput.value.toLowerCase();
+        const valueFilter = valueInput.value.toLowerCase();
+
+        document.querySelectorAll("#entries tr").forEach(row => {
+            const key = row.querySelector('input[name="key[]"]').value.toLowerCase();
+            const val = row.querySelector('input[name="val[]"]').value.toLowerCase();
+
+            const show = key.includes(keyFilter) && val.includes(valueFilter);
+            row.style.display = show ? "" : "none";
+        });
+    }
+
+    keyInput.addEventListener("input", filterTable);
+    valueInput.addEventListener("input", filterTable);
+});
