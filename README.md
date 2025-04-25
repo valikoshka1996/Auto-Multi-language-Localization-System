@@ -52,7 +52,7 @@ Built with:
 1. **Clone the repo or upload to your server:**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/tourbeat.git
+   git clone https://github.com/YOUR_USERNAME/tourbeat.git](https://github.com/valikoshka1996/Auto-Multi-language-Localization-System
    ```
 
 2. **Configure the system:**
@@ -62,7 +62,7 @@ Built with:
    ```php
    $name = 'TourBeat';
    $default_lang = 'en';
-   $site_url = 'https://tourbeat.com.ua/';
+   $site_url = 'https://your.domain/';
    $public_key = 'YOUR_PUBLIC_KEY';
    $private_key = 'YOUR_PRIVATE_KEY';
    ```
