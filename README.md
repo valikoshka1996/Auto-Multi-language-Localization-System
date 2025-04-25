@@ -253,7 +253,7 @@ If `$service_mode` is `true`, all requests are redirected to `assets/maintace.ht
 Include `lang.php` at the start of your script to enable language detection:
 
 ```php
-require_once 'lang.php';
+require_once 'lang_engine.php';
 
 echo $texts['welcome']; // Example usage of loaded translations
 ```
