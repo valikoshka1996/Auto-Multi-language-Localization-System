@@ -202,7 +202,7 @@ project-root/
 ├── config.php              # Contains $default_lang and $service_mode
 ├── assets/
 │   └── maintace.html       # Maintenance mode page
-└── lang.php                # This script
+└── lang_engine.php         # This script
 ```
 
 ## ✅ Features
