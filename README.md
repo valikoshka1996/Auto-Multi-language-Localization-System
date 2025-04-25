@@ -185,7 +185,7 @@ Suggestions for further development:
 
 ---
 
-# 🌐 PHP Language Detection & Localization Script
+# 🌐 PHP Language Detection & Localization Script (lang_engine.php)
 
 This PHP script handles automatic and manual language detection for a multilingual web application. It supports country-based language auto-selection, custom language files, logging of user access by IP and selected language, and language switch UI elements with labels and tooltips.
 
