@@ -1,8 +1,4 @@
-Ось дуже детальний `README.md` англійською для твого сайту **tourbeat.com.ua** з кастомною адмінкою:
 
----
-
-```markdown
 # TourBeat Landing Page + Custom Admin Panel
 
 > A multilingual, mobile-friendly landing page for a travel-related service with a fully custom-built admin panel and media manager.
@@ -189,6 +185,88 @@ Suggestions for further development:
 
 ---
 
+# 🌐 PHP Language Detection & Localization Script
+
+This PHP script handles automatic and manual language detection for a multilingual web application. It supports country-based language auto-selection, custom language files, logging of user access by IP and selected language, and language switch UI elements with labels and tooltips.
+
+## 📂 File Structure
+
+```
+project-root/
+├── localisation/           # Directory for language files (*.txt)
+│   ├── en.txt
+│   ├── ua.txt
+│   └── ...
+├── logs/
+│   └── log.txt             # Log of visitor IPs and selected languages
+├── config.php              # Contains $default_lang and $service_mode
+├── assets/
+│   └── maintace.html       # Maintenance mode page
+└── lang.php                # This script
+```
+
+## ✅ Features
+
+- 🌍 Detects user IP and gets country-based default language.
+- 🌐 Loads localization from `.txt` files using `key=value` format.
+- 🇺🇳 Displays language switcher with self-labels (e.g., `eng`, `укр`, `日本`).
+- ✍️ Logs IP and selected language in `logs/log.txt`.
+- 🛠 Supports maintenance mode.
+
+## 🔧 Configuration
+
+Edit `config.php`:
+```php
+<?php
+$default_lang = 'en';     // Default fallback language
+$service_mode = false;    // Enable maintenance mode (true/false)
+```
+
+## 📥 Language File Format
+
+Each language file should be placed in `/localisation` and follow this format:
+```
+welcome=Welcome to our website!
+contact=Contact Us
+```
+
+Example: `localisation/en.txt`
+
+## 🌐 Language Switching
+
+The `getLangsWithFlags()` function dynamically lists available languages based on files in `/localisation`, using predefined names and labels.
+
+## 🚦 IP to Country Detection
+
+This script uses the [geojs.io](https://get.geojs.io) API to detect the user's country from their IP address. Based on the country code, it sets the default language (e.g., `ua` for Ukraine).
+
+## 🔒 Logging
+
+Visitor access is logged with a timestamp, IP, and selected language in `logs/log.txt`. If the file exceeds 10MB, it's reset automatically.
+
+## 🧪 Maintenance Mode
+
+If `$service_mode` is `true`, all requests are redirected to `assets/maintace.html`.
+
+## 🚀 Usage
+
+Include `lang.php` at the start of your script to enable language detection:
+
+```php
+require_once 'lang.php';
+
+echo $texts['welcome']; // Example usage of loaded translations
+```
+
+## 💡 Tip
+
+To switch languages manually, add `?lang=XX` to the URL, where `XX` is the language code (`en`, `ua`, `fr`, etc.).
+
+---
+
+Let me know if you'd like a version in Ukrainian too?
+
+
 ## 📄 License
 
 This project contains HTML/CSS from TEMPLATED (CC BY 3.0). All PHP code is custom and you are free to modify/distribute under the MIT license.
@@ -198,9 +276,3 @@ This project contains HTML/CSS from TEMPLATED (CC BY 3.0). All PHP code is custo
 ## 📬 Contact
 
 For support or customization requests, contact the original developer or clone & modify for your needs.
-
-```
-
----
-
-Хочеш, я ще створю GitHub-репозиторій і заллю файли туди, чи просто згенерувати цей README.md як файл?
